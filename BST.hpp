@@ -3,11 +3,10 @@
 
 template <class T>
 class node {
-    private:
+    public:
         T info;
         node<T> *left;
         node<T> *right;
-    public:
         node(){
             this->left = NULL;
             this->right = NULL;
@@ -54,7 +53,6 @@ class BST {
                     return true;
             }
         }
-
         node<T>* isHere(node<T> *pNode, T value){
             if (pNode == NULL)
                 return NULL;
@@ -154,9 +152,6 @@ class BST {
         }
         node<T>* isHere(T value){
             return this->isHere(this->root, value);
-        }
-        int peso(){
-            return this->root;
         }
 
         void insert(T value){

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
 #include <bits/stdc++.h>
 #include "BST.hpp"
 #include "list.hpp"
@@ -144,18 +145,23 @@ void plantar(sebas::list<letras> &l, BST<string> &t){
     }
 }
 
-string backtree(node<string> n, string searching, string &sol)
-{
-    string aux=*(n.info);
-  if( aux[0] ==searching )//condicional para encontrar la solucion
-    return sol;
-  else{//exploracion de las posibles soluciones
-    backtree(n.getLeftChild(),searching,sol+"0");//llamadas recursivas
-    sol.erase(sol.lenght()-1,1);//actualizacion de los parametros
-  }else{
-    backtree(n.getRightChild(),searching,sol+"1");//llamadas recursivas
-    sol.erase(sol.lenght()-1,1);//actualizacion de los parametros
-  }
+template <class T>
+string patch(node<T> &Pnode, string ToFind ){
+    string leftPatch;
+    string rightPatch;
+    if(Pnode == NULL)
+        return "";
+    if(Pnode == ToFind)
+        return leftPatch+rightPatch;
+
+    leftPatch=patch(Pnode->getLeftChild(),ToFind);
+
+    rightPatch=patch(Pnode->getRighttChild(),ToFind);
+
+    if(leftPatch)
+        return "0"+leftPatch;
+    if(rightPatch)
+        return "1"+rightPatch;
 }
 
 int main(){
@@ -164,7 +170,6 @@ int main(){
     sebas::list<letras> li;            //creación de la lista de letras
     BST<string> codi;                  //creación del BST de CODIficacion
     BST<string> deco;                  //creación del BST de DECOdificacion
-    string way="";
 
 
     leer(l);                           //se lee el archivo y se guarda en una lista
@@ -173,8 +178,7 @@ int main(){
     l.erase(l.first());
     CastingEst(q,li);
     plantar(li,codi);
-    printf("\ninorder: ");
-    codi.inorder();
+
 
 
 
@@ -182,12 +186,16 @@ int main(){
     l.erase(l.first());
     CastingEst(q,li);
     plantar(li,deco);
-    printf("\ninorder: ");
-    deco.inorder();
 
-    //backtree retorna un string el cual se usara para recorrer deco
-    way=backtree(codi.getRoot(),way);
-    cout<<way<<endl;
+
+
+    printf("\ninorder: ");
+    codi.inorder();
+    //printf("\ninorder: ");
+    //deco.inorder();
+
+    node<string> Pnode=*(codi.getRoot());
+    cout<<patch( Pnode, "A2" );
 
     printf("\nfin\n");
     return 0;
