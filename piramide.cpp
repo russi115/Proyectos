@@ -35,6 +35,16 @@ void print(sebas::list<string> &l){//imprime el contenido de la lista
    printf("%s","\n\n");
 }
 
+void print(sebas::list<int> &l){//imprime el contenido de la lista
+    sebas::list<int>::pos position=l.first();
+    printf("%s","\nlista de enteros: \n");
+    while(position != l.last()){
+      cout << *(l.get(position)) << endl;
+      l.next(position);
+   }
+   printf("%s","\n\n");
+}
+
 void impL(sebas::list<letras> &le){//imprimir contenido de la lista struct
     sebas::queue<letras>::pos pos=le.first();
     letras aux;
@@ -145,27 +155,30 @@ void plantar(sebas::list<letras> &l, BST<string> &t){
     }
 }
 
-template <class T>
-string patch(node<T> &Pnode, string ToFind ){
-    string leftPatch;
-    string rightPatch;
-    if(Pnode == NULL)
-        return "";
-    if(Pnode == ToFind)
-        return leftPatch+rightPatch;
+void path(node<string> &Pnode, char ToFind, string &sol){
+    string aux= Pnode.getInfo();
+    if(Pnode.left == NULL and Pnode.right == NULL and aux[0] != ToFind ){
+        cout<< "\nestoy en una hoja.\ncamino: "<<sol<<endl;
+    }else if(aux[0] == ToFind){
+        sol=sol;
+    }else if(Pnode.left!=NULL){
+        path( *(Pnode.getLeftChild()), ToFind, sol+="0");
+    }else if(Pnode.right!=NULL){
+        path( *(Pnode.getRightChild()),ToFind, sol+="1");
+    }
+}
 
-    leftPatch=patch(Pnode->getLeftChild(),ToFind);
-
-    rightPatch=patch(Pnode->getRighttChild(),ToFind);
-
-    if(leftPatch)
-        return "0"+leftPatch;
-    if(rightPatch)
-        return "1"+rightPatch;
+void algo(string s, sebas::list<string> &code, node<string> &Pnode){
+    for(int i=0;i< s.length() ;++i){
+        string sol="";
+        path( Pnode, s[i] ,sol );
+        code.insert(sol,code.last());
+    }
 }
 
 int main(){
     sebas::list<string> l;             //creación de la lista
+    sebas::list<string> code;
     sebas::queue<letras> q;            //creación de la cola de letas
     sebas::list<letras> li;            //creación de la lista de letras
     BST<string> codi;                  //creación del BST de CODIficacion
@@ -191,11 +204,18 @@ int main(){
 
     printf("\ninorder: ");
     codi.inorder();
-    //printf("\ninorder: ");
-    //deco.inorder();
 
-    node<string> Pnode=*(codi.getRoot());
-    cout<<patch( Pnode, "A2" );
+    printf("\ninorder: ");
+    deco.inorder();
+
+
+    algo(*(l.get(l.first())),code, *(codi.getRoot()));
+    l.erase(l.first());
+    print(code);
+
+
+
+
 
     printf("\nfin\n");
     return 0;
