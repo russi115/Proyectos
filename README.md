@@ -7,6 +7,9 @@ SebasPapasitoUWUharre
 
 
 To create a Branch use the keys Ctrl+Shift+N
+
 after you should write a commit about what you maked
+
 ending you hace to upload your file whit a "push" wiht the keys Ctrl+P
+
 you can use Ctrl+R to view in GitHub your changes
