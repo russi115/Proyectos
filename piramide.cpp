@@ -35,8 +35,8 @@ void print(sebas::list<string> &l){//imprime el contenido de la lista
    printf("%s","\n\n");
 }
 
-void print(sebas::list<int> &l){//imprime el contenido de la lista
-    sebas::list<int>::pos position=l.first();
+void print(sebas::list<char> &l){//imprime el contenido de la lista
+    sebas::list<char>::pos position=l.first();
     printf("%s","\nlista de enteros: \n");
     while(position != l.last()){
       cout << *(l.get(position)) << endl;
@@ -68,7 +68,6 @@ bool isHere (string s, char c){
 
 void huffman(string &s,sebas::queue<letras> &l){
   int c[50];
-  //cout<<s<<endl;
   string order="";
   for(int i=0;i<50;++i){//se iguala todo el arr a 0
     c[i]=0;
@@ -84,7 +83,6 @@ void huffman(string &s,sebas::queue<letras> &l){
     if(!isHere(order,s[i]))
       order+=s[i];
   }
-  //cout<<"order: "<<order<<" order.lenght: "<<order.length()<<endl;
   for(int ii=0;ii<order.length();++ii){
     if( l.size() < order.length() )
       for(int i=0;i<50;++i){
@@ -98,12 +96,6 @@ void huffman(string &s,sebas::queue<letras> &l){
             aux.cantidad=c[i];
             c[i]=0;
           }
-          /*if(aux.l==order[i]){
-            aux.cantidad=c[i];
-            cout<<"this is aux.c: "<<aux.cantidad<<endl;
-            c[i]=0;
-          }*/
-          //cout<<aux.l<<" -pre_enqueue: "<<aux.cantidad<<endl;
           l.enqueue(aux);
         }
       }
@@ -113,7 +105,6 @@ void huffman(string &s,sebas::queue<letras> &l){
 void printQueue(sebas::queue<letras> &q){
   if(!q.isEmpty()){
     letras aux=*(q.head());
-    //cout<<aux.l<<" -hey- "<<aux.cantidad<<endl;
     q.dequeue();
     printQueue(q);
     q.enqueue(aux);
@@ -122,9 +113,7 @@ void printQueue(sebas::queue<letras> &q){
 
 void CastingEst(sebas::queue<letras> &q,sebas::list<letras> &l){
   while(!q.isEmpty()){
-    //cout<<q.size()<<endl;
     letras temp=*(q.head());
-    //cout<<endl<<temp.l<<" -hi- "<<temp.cantidad<<endl;
       l.insert(temp,l.last());
       q.dequeue();
   }
@@ -176,8 +165,47 @@ void algo(string s, sebas::list<string> &code, node<string> &Pnode){
     }
 }
 
+void casting(sebas::list<string> &l1, sebas::list<char> &l2){
+    if(!l1.isEmpty()){
+        string aux=*(l1.get(l1.first()));
+        for(int i=0;i<aux.length();++i){
+            char c=aux[i];
+            l2.insert(c,l2.last());
+        }
+    }
+}
+
+void way(node<string> &Pnode, sebas::list<char> &l,string &sol){
+    string aux= Pnode.getInfo();
+    char ToFind= '/';
+    if(!l.isEmpty())
+        ToFind= *(l.get(l.first()));
+    if( l.isEmpty() ){
+        sol+=aux[0];
+    }else if(Pnode.left!=NULL and ToFind == '0'){
+        //cout<<"\nleft->\n";
+        l.erase(l.first());
+        way( *(Pnode.getLeftChild()), l, sol );
+        l.insert(ToFind,l.first());
+    }else if(Pnode.right!=NULL and ToFind == '1'){
+        //cout<<"\nright->\n";
+        l.erase(l.first());
+        way( *(Pnode.getRightChild()),l, sol );
+        l.insert(ToFind,l.first());
+    }
+}
+
+void decodi(sebas::list<string>&l, sebas::list<char> l2, node<string> &Pnode, string &s){
+    while(!l.isEmpty()){
+        casting(l,l2);
+        way( Pnode , l2, s );
+        l.erase(l.first());
+    }
+}
+
 int main(){
     sebas::list<string> l;             //creación de la lista
+    sebas::list<char> lc;
     sebas::list<string> code;
     sebas::queue<letras> q;            //creación de la cola de letas
     sebas::list<letras> li;            //creación de la lista de letras
@@ -211,7 +239,11 @@ int main(){
 
     algo(*(l.get(l.first())),code, *(codi.getRoot()));
     l.erase(l.first());
-    print(code);
+    string s="";
+    decodi(l,lc,*(deco.getRoot()),s);
+
+    cout<<"\nsol: "<<s<<endl;
+
 
 
 
