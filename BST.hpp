@@ -34,6 +34,11 @@ class node {
         node<T>* getRightChild(){
             return this->right;
         }
+        bool isLeef(){
+            if( this->left == NULL and this->right ==NULL)
+                return true;
+            return false;
+        }
 };
 
 template <class T>

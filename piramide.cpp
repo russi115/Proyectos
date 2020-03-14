@@ -181,7 +181,7 @@ int main(){
     sebas::list<string> code;
     sebas::queue<letras> q;            //creación de la cola de letas
     sebas::list<letras> li;            //creación de la lista de letras
-    BST<string> codi;                  //creación del BST de CODIficacion
+    BST<string> codi;                  //creación gdel BST de CODIficacion
     BST<string> deco;                  //creación del BST de DECOdificacion
 
 
