@@ -181,14 +181,12 @@ void way(node<string> &Pnode, sebas::list<char> &l,string &sol){
     if(!l.isEmpty())
         ToFind= *(l.get(l.first()));
     if( l.isEmpty() ){
-        sol+=aux[0];
+        cout<<"aux[0]: "<<aux[0];
     }else if(Pnode.left!=NULL and ToFind == '0'){
-        //cout<<"\nleft->\n";
         l.erase(l.first());
         way( *(Pnode.getLeftChild()), l, sol );
         l.insert(ToFind,l.first());
     }else if(Pnode.right!=NULL and ToFind == '1'){
-        //cout<<"\nright->\n";
         l.erase(l.first());
         way( *(Pnode.getRightChild()),l, sol );
         l.insert(ToFind,l.first());
