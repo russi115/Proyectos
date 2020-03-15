@@ -144,7 +144,7 @@ void plantar(sebas::list<letras> &l, BST<string> &t){
     }
 }
 
-void path(node<string> &Pnode, char ToFind, string &sol){
+void path(node<string> &Pnode, char ToFind, string &sol){//codigo binario
     string aux= Pnode.getInfo();
     if(Pnode.left == NULL and Pnode.right == NULL and aux[0] != ToFind ){
         cout<< "\nestoy en una hoja.\ncamino: "<<sol<<endl;
@@ -181,7 +181,7 @@ void way(node<string> &Pnode, sebas::list<char> &l,string &sol){
     if(!l.isEmpty())
         ToFind= *(l.get(l.first()));
     if( l.isEmpty() ){
-        cout<<"aux[0]: "<<aux[0];
+        sol+=aux[0];
     }else if(Pnode.left!=NULL and ToFind == '0'){
         l.erase(l.first());
         way( *(Pnode.getLeftChild()), l, sol );
@@ -218,9 +218,6 @@ int main(){
     CastingEst(q,li);
     plantar(li,codi);
 
-
-
-
     huffman(*(l.get(l.first())),q);    //se aplica el codigo huffman a la primera lista y luego se le pasa a lasegunda
     l.erase(l.first());
     CastingEst(q,li);
@@ -235,7 +232,7 @@ int main(){
     deco.inorder();
 
 
-    algo(*(l.get(l.first())),code, *(codi.getRoot()));
+    algo(*(l.get(l.first())),code, *(codi.getRoot()) );
     l.erase(l.first());
     string s="";
     decodi(l,lc,*(deco.getRoot()),s);

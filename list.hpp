@@ -89,6 +89,20 @@ class list {
 		int size(){
     		return n;
 		}
+		void print(){
+			cout<<"lista: "<<endl;
+			nodel<T> *pTemp = pFirst;
+			while(pTemp->next!= NULL){
+				cout<<pTemp->info<<endl;
+				pTemp=pTemp->next;
+			}
+			if(pTemp->next==NULL)
+				cout<<pTemp->info<<endl;
+
+			if(pTemp==NULL)
+				cout<<"empty"<<endl;
+
+		}
 };
 
 template <class T>
@@ -113,6 +127,9 @@ class stack:public list<T>{
 	T* top(){
 		return list<T>::get(list<T>::first());
 	}
+	void print(){
+		list<T>::print();
+	}
 };
 
 template<class T>
@@ -136,6 +153,9 @@ class queue:public list<T>{
 	}
 	T* head(){
 		return list<T>::get(list<T>::first());
+	}
+	void print(){
+		list<T>::print();
 	}
 };
 

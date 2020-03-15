@@ -19,12 +19,14 @@ class node {
         void setInfo(T value){
             this->info = value;
         }
+
         void setLeftChild(node<T> *left){
             this->left = left;
         }
         void setRightChild(node<T> *right){
             this->right = right;
         }
+
         T getInfo(){
             return this->info;
         }
@@ -176,3 +178,76 @@ class BST {
             postorder(this->root);
         }
 };
+
+
+/*
+template <class T>
+class Bignode{
+    T info;
+    node<T> *First;
+    node<T> *Second;
+    node<T> *Third;
+    node<T> *Fourth;
+    Bignode(){
+        this->First=NULL;
+        this->Secound=NULL;
+        this->Third=NULL;
+        this->Fourth=NULL;
+    }
+    Bignode(T value){
+        this->info=value;
+    }
+    ~node(){
+    }
+    void setInfo(T value){
+        this->info=value;
+    }
+
+    void setFirstChild(node<T> *First){
+        this->First=First;
+    }
+    void setSecondChild(node<T> *Second){
+        this->Second=Second;
+    }
+    void setFirstChild(node<T> *Third){
+        this->Third=Third;
+    }
+    void setFourthChild(node<T> *Fourth){
+        this->Fourth=Fourth
+    }
+
+    node<T>* getChild( int n ){
+        if(n==1)
+            return this->First;
+        if(n==2)
+            return this->Second;
+        if(n==3)
+            return this->Third;
+        if(n==4)
+            return this->Fourth;
+    }
+    T getInfo(){
+        return this->info;
+    }
+    bool isLeef(){
+        if( this->first == NULL and this->Second == NULL and this->Third == NULL  and this->Fourth == NULL)
+            return true;
+        return false;
+    }
+
+};
+
+template <class T>
+class QuadTree {
+    private node<T> *root;
+
+    bool lookup(node<T> *pNode, T value){
+        if(pNode == NULL)
+            return false;
+        else {
+            if(value < )
+        }
+    }
+}
+
+*/
