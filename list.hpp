@@ -75,9 +75,9 @@ class list {
 			n++;
 		}
 		void erase(pos pValue){
-			if (pValue == pFirst)
+			if (pValue == pFirst){
 				pFirst = pFirst->next;
-			else{
+			}else{
 				nodel<T> *pTemp = pFirst;
 				while(pTemp->next != pValue)
 					pTemp = pTemp->next;
@@ -96,12 +96,10 @@ class list {
 				cout<<pTemp->info<<endl;
 				pTemp=pTemp->next;
 			}
-			if(pTemp->next==NULL)
+			if(pTemp->next==NULL){
 				cout<<pTemp->info<<endl;
-
-			if(pTemp==NULL)
 				cout<<"empty"<<endl;
-
+			}
 		}
 };
 
@@ -116,6 +114,9 @@ class stack:public list<T>{
 		return list<T>::isEmpty();
 	}
 	void push(T&x){
+		list<T>::insert(x,list<T>::first());
+	}
+	void push(const T &x){
 		list<T>::insert(x,list<T>::first());
 	}
 	void pop(){
@@ -145,6 +146,9 @@ class queue:public list<T>{
 	void enqueue(T&x){
 		list<T>::insert(x, list<T>::last());
 	}
+	void enqueue(const T &x){
+		list<T>::insert(x, list<T>::last());
+	}
 	void dequeue(){
 		list<T>::erase(list<T>::first());
 	}
@@ -162,6 +166,7 @@ class queue:public list<T>{
 template <class T>
 class dipolo:public list<T>{
 	public:
+	typedef nodel<T> *pos;
 	dipolo(){
 	}
 	~dipolo(){
@@ -169,18 +174,35 @@ class dipolo:public list<T>{
 	bool isEmpty(){
 		return list<T>::isEmpty();
 	}
+
+	void insert(T&x,pos pValue){
+		list<T>::insert(x,pValue);
+	}
+	void insert(const T&x,pos pValue){
+		list<T>::insert(x,pValue);
+	}
+
 	void insertFirst(T&x){
 		list<T>::insert(x,list<T>::first());
 	}
+	void insertFirst(const T &x){
+		list<T>::insert(x,list<T>::first());
+	}
+
 	void insertLast(T&x){
 		list<T>::insert(x,list<T>::last());
 	}
+	void insertLast(const T &x){
+		list<T>::insert(x,list<T>::last());
+	}
+
 	void erasefirst(){
 		list<T>::erase(list<T>::first());
 	}
 	void eraselast(){
 		list<T>::erase(list<T>::last());
 	}
+
 	int size(){
 		return list<T>::size();
 	}
@@ -189,6 +211,9 @@ class dipolo:public list<T>{
 	}
 	T* last(){
 		return list<T>::get(list<T>::last());
+	}
+	void print(){
+		list<T>::print();
 	}
 };
 }
